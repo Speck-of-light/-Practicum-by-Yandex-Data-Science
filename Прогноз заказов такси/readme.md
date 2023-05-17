@@ -10,3 +10,30 @@ CatBoostRegressor.
 Анализ сравнительных графиков, показал, что модели хуже всего справляются с предсказаниями на высоких пиках и на провалах, но в целом, угадывают направления движения.
 Моделью с лучшим показателем RMSE на валидационной выборке стала CatBoostRegressor 26.67 На тестовой выборке она показале значение - 25 44.23 , на не дифференцированном датасете- 23.23 41.97 Таким образом не диферренцированные данные показали лучший результат.
 При проверке на адекватность модель dummy показала 36.69, что выше чем показатели других рассматриваемых моделей, но все равно ниже заданного порогового значения в 48 пунктов. 58.88 Тем не менее мы можем утверждать, что модель CatBoostRegressor прошла проверку на адекватность и показала хорошее значение целевой метрики, выше заданного порогового значения в 48 пунктов.
+
+
+import pandas as pd
+#import numpy as np
+
+from statsmodels.tsa.seasonal import seasonal_decompose
+import matplotlib.pyplot as plt
+
+from statsmodels.graphics.tsaplots import plot_acf
+from statsmodels.tsa.stattools import adfuller
+
+from sklearn.linear_model import LinearRegression 
+from sklearn.tree import DecisionTreeRegressor
+from catboost import CatBoostRegressor
+
+import copy
+import plotly.express as px
+
+from sklearn.model_selection import GridSearchCV , train_test_split, TimeSeriesSplit , cross_val_score 
+
+from sklearn.metrics import mean_squared_error
+from sklearn.dummy import DummyRegressor
+
+#import time
+
+import warnings
+warnings.filterwarnings('ignore')
